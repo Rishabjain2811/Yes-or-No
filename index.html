@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#17120f" />
+    <title>A very important question</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        min-height: 100svh;
+        margin: 0;
+        overflow: hidden;
+        color: #fff8ef;
+        background: linear-gradient(135deg, rgb(23 18 15 / 58%), rgb(23 18 15 / 38%)), url("./s.jpeg") center / cover no-repeat fixed;
+      }
+
+      body::before {
+        position: fixed;
+        z-index: 0;
+        pointer-events: none;
+        content: "";
+        inset: 0;
+        opacity: 0.18;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+      }
+
+      .page {
+        position: relative;
+        display: grid;
+        min-height: 100vh;
+        min-height: 100svh;
+        overflow: hidden;
+        place-items: center;
+        padding: 32px 22px;
+      }
+
+      .orb {
+        position: absolute;
+        z-index: 0;
+        width: clamp(110px, 18vw, 220px);
+        aspect-ratio: 1;
+        border: 1px solid rgb(255 226 183 / 42%);
+        border-radius: 50%;
+        background: linear-gradient(145deg, rgb(255 220 171 / 17%), rgb(255 142 72 / 3%));
+        box-shadow: inset 0 0 35px rgb(255 223 181 / 12%), 0 0 80px rgb(255 148 78 / 14%);
+        animation: drift 9s ease-in-out infinite, orbit-glow 5s ease-in-out infinite alternate;
+      }
+
+      .orb-one {
+        top: 10%;
+        left: 10%;
+      }
+
+      .orb-two {
+        right: 12%;
+        bottom: 10%;
+        width: clamp(75px, 12vw, 145px);
+        animation-delay: -4s;
+      }
+
+      .sparkle {
+        position: absolute;
+        z-index: 0;
+        color: #ffdc72;
+        font-size: clamp(20px, 3vw, 32px);
+        animation: twinkle 2.8s ease-in-out infinite;
+      }
+
+      .sparkle-one {
+        top: 23%;
+        right: 23%;
+      }
+
+      .sparkle-two {
+        bottom: 24%;
+        left: 22%;
+        color: #ff8863;
+        animation-delay: -1.2s;
+      }
+
+      .card {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 720px);
+        padding: clamp(38px, 8vw, 76px) clamp(22px, 7vw, 70px);
+        border: 1px solid rgb(255 231 204 / 18%);
+        border-radius: 34px;
+        background: linear-gradient(145deg, rgb(60 42 31 / 12%), rgb(34 26 20 / 10%));
+        box-shadow: 0 32px 100px rgb(0 0 0 / 38%), inset 0 1px 0 rgb(255 255 255 / 16%), 0 0 90px rgb(255 126 67 / 12%);
+        text-align: center;
+        backdrop-filter: blur(3px);
+        animation: arrive 850ms cubic-bezier(0.2, 0.8, 0.2, 1) both, levitate 7s ease-in-out 850ms infinite;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 22px;
+        color: #ffdc72;
+        font-size: 0.73rem;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before,
+      .eyebrow::after {
+        width: 18px;
+        height: 1px;
+        background: rgb(255 220 114 / 60%);
+        content: "";
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.6rem, 8vw, 5.5rem);
+        font-weight: 780;
+        letter-spacing: -0.075em;
+        line-height: 0.99;
+        text-shadow: 0 5px 34px rgb(255 161 100 / 18%);
+      }
+
+      h1 span {
+        display: block;
+        margin-top: 12px;
+        width: fit-content;
+        margin-right: auto;
+        margin-left: auto;
+        color: transparent;
+        background: linear-gradient(100deg, #ff9a76 8%, #ffd16f 94%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 0.86em;
+        font-style: italic;
+        font-weight: 500;
+        letter-spacing: -0.065em;
+      }
+
+      .subtitle {
+        margin: 22px 0 34px;
+        color: #d3c4b5;
+        font-size: clamp(0.92rem, 2.5vw, 1rem);
+        letter-spacing: 0.01em;
+      }
+
+      .buttons {
+        position: relative;
+        display: block;
+        width: min(400px, 100%);
+        height: 110px;
+        margin: 0 auto;
+        isolation: isolate;
+        touch-action: manipulation;
+      }
+
+      .choice {
+        position: absolute;
+        top: 29px;
+        min-width: 126px;
+        padding: 15px 25px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        font: inherit;
+        font-size: 0.98rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      }
+
+      .yes {
+        left: calc(50% - 136px);
+        color: #20192b;
+        background: linear-gradient(110deg, #ffe58b, #ffbf5d);
+        box-shadow: 0 9px 30px rgb(255 187 86 / 28%), inset 0 1px 0 rgb(255 255 255 / 78%);
+      }
+
+      .yes:hover {
+        transform: translateY(-3px) scale(1.035);
+        background: linear-gradient(110deg, #fff0ae, #ffd17a);
+        box-shadow: 0 13px 38px rgb(255 187 86 / 38%), inset 0 1px 0 rgb(255 255 255 / 78%);
+      }
+
+      .no {
+        left: calc(50% + 10px);
+        z-index: 2;
+        color: #fff0dd;
+        border-color: rgb(255 231 204 / 24%);
+        background: rgb(255 255 255 / 8%);
+        cursor: none;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-select: none;
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 10%);
+        transition: none;
+      }
+
+      .no:hover {
+        color: #fff0dd;
+      }
+
+      .footnote {
+        margin: 25px 0 0;
+        color: #b7a797;
+        font-size: 0.76rem;
+        letter-spacing: 0.04em;
+      }
+
+      @keyframes arrive {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes drift {
+        0%, 100% {
+          transform: translate3d(0, 0, 0);
+        }
+        50% {
+          transform: translate3d(12px, -18px, 0);
+        }
+      }
+
+      @keyframes twinkle {
+        0%, 100% {
+          opacity: 0.45;
+          transform: scale(0.8) rotate(-12deg);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.15) rotate(12deg);
+        }
+      }
+
+      @keyframes night-shift {
+        to {
+          background-position: 100% 80%;
+        }
+      }
+
+      @keyframes orbit-glow {
+        to {
+          box-shadow: inset 0 0 55px rgb(255 223 181 / 25%), 0 0 100px rgb(255 148 78 / 26%);
+        }
+      }
+
+      @keyframes levitate {
+        0%, 100% {
+          translate: 0 0;
+        }
+        50% {
+          translate: 0 -7px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          border-radius: 26px;
+        }
+
+        .choice {
+          min-width: 104px;
+          padding: 14px 15px;
+        }
+
+        .buttons {
+          width: min(250px, 100%);
+        }
+
+        .yes {
+          left: 0;
+        }
+
+        .no {
+          left: calc(50% + 6px);
+        }
+
+        .orb-one {
+          top: 7%;
+          left: -9%;
+        }
+
+        .orb-two {
+          right: -7%;
+          bottom: 7%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="orb orb-one" aria-hidden="true"></div>
+      <div class="orb orb-two" aria-hidden="true"></div>
+      <span class="sparkle sparkle-one" aria-hidden="true">✳</span>
+      <span class="sparkle sparkle-two" aria-hidden="true">✦</span>
+
+      <section class="card" aria-labelledby="question">
+        
+        <h1 id="question">Will you come<br /><span>down saakshi?</span></h1>
+        <p class="subtitle">Be so for real right now.</p>
+        <div class="buttons" id="button-zone">
+          <button class="choice yes" type="button" onclick="window.location.href = 'yes.html'">yes</button>
+          <button class="choice no" id="no-button" type="button" aria-disabled="true" tabindex="-1">no</button>
+        </div>
+        <p class="footnote">choose wisely (there is only one choice)</p>
+      </section>
+    </main>
+
+    <script>
+      const noButton = document.querySelector("#no-button");
+      const buttonZone = document.querySelector("#button-zone");
+
+      function dodge(event) {
+        const zone = buttonZone.getBoundingClientRect();
+        const button = noButton.getBoundingClientRect();
+        const pointerX = event.clientX;
+        const pointerY = event.clientY;
+        const centerX = button.left + button.width / 2;
+        const centerY = button.top + button.height / 2;
+        const distance = Math.hypot(pointerX - centerX, pointerY - centerY);
+
+        if (distance > 240) return;
+
+        const yes = buttonZone.querySelector(".yes").getBoundingClientRect();
+        const minLeft = Math.max(0, yes.right - zone.left + 12);
+        const maxLeft = Math.max(minLeft, zone.width - button.width);
+        const maxTop = Math.max(0, zone.height - button.height);
+        const candidates = [
+          { left: minLeft, top: 0 },
+          { left: minLeft, top: maxTop },
+          { left: maxLeft, top: 0 },
+          { left: maxLeft, top: maxTop },
+        ];
+        const destination = candidates.reduce((best, candidate) => {
+          const x = zone.left + candidate.left + button.width / 2;
+          const y = zone.top + candidate.top + button.height / 2;
+          const candidateDistance = Math.hypot(pointerX - x, pointerY - y);
+          return candidateDistance > best.distance ? { ...candidate, distance: candidateDistance } : best;
+        }, { ...candidates[0], distance: -1 });
+
+        noButton.style.left = `${destination.left}px`;
+        noButton.style.top = `${destination.top}px`;
+      }
+
+      document.addEventListener("pointermove", dodge);
+      buttonZone.addEventListener("pointerdown", (event) => {
+        dodge(event);
+      });
+    </script>
+  </body>
+</html>
